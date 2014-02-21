@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TemplateReport>
+  <ItemTemplates>
+    <ItemTemplate Path="ItemTemplates\Web\PackageManifest\Definitions\CSharp.vstemplate" Name="Package Manifest" Description="Long description here" ProjectType="CSharp" ProjectSubType="" />
+    <ItemTemplate Path="ItemTemplates\Web\PackageManifest\Definitions\VB.vstemplate" Name="Package Manifest" Description="Long description here" ProjectType="VisualBasic" ProjectSubType="" />
+  </ItemTemplates>
+  <ProjectTemplates>
+    <ProjectTemplate Path="ProjectTemplates\Web\Widget\_Definitions\CSharp.vstemplate" Name="Videre Widget Template" Description="Create a project for videre widgets" ProjectType="CSharp" ProjectSubType="" />
+  </ProjectTemplates>
+  <Snippets />
+</TemplateReport>

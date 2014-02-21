@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="34a4e6f3-ed78-4b65-b4f5-26fa0a2360dc" Version="1.0" Language="en-US" Publisher="Code Endeavors, Inc." />
+    <DisplayName>CodeEndeavors.VidereTemplatePack</DisplayName>
+    <Description>Visual Studio Templates for the Videre CMS</Description>
+    <MoreInfo>http://www.viderecms.com/</MoreInfo>
+    <License>license.txt</License>
+    <Icon>Resources\Videre.ico</Icon>
+    <PreviewImage>Resources\Videre.ico</PreviewImage>
+    <Tags>Videre, CMS, Widget</Tags>
+  </Metadata>
+  <Installation InstalledByMsi="false">
+    <InstallationTarget Version="[11.0,13.0)" Id="Microsoft.VisualStudio.Pro" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="[11.0,12.0)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" Path="Output\ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" Path="Output\ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="CodeEndeavors.VidereTemplatePackWizards.dll" AssemblyName="CodeEndeavors.VidereTemplatePackWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+  </Assets>
+</PackageManifest>

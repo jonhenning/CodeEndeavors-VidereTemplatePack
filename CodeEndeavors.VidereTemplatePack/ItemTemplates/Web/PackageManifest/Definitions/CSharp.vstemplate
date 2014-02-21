@@ -1,0 +1,21 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <ProjectType>CSharp</ProjectType>
+    
+    <DefaultName>package.manifest</DefaultName>
+    <Name>Package Manifest</Name>
+    <Description>Long description here</Description>    
+    <Icon>icon.png</Icon>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+     
+    <ProjectItem ReplaceParameters="true">package.manifest</ProjectItem>
+    
+  </TemplateContent>
+    <WizardExtension>
+        <Assembly>CodeEndeavors.VidereTemplatePackWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Assembly>
+        <FullClassName>CodeEndeavors.VidereTemplatePackWizards.SimpleReplacementWizard</FullClassName>
+    </WizardExtension>
+</VSTemplate>

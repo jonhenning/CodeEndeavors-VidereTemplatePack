@@ -1,0 +1,56 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+    <TemplateData>
+        <Name>Videre Widget Template</Name>
+        <Description>Create a project for videre widgets</Description>
+        <ProjectType>CSharp</ProjectType>
+        <ProjectSubType>
+        </ProjectSubType>
+        <SortOrder>1000</SortOrder>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>Videre.Widgets.Sample</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+        <Icon>icon.png</Icon>
+    </TemplateData>
+    <TemplateContent>
+        <Project TargetFileName="$safeprojectname$.csproj" File="videre.widget.csproj" ReplaceParameters="true">
+            <Folder Name="Controllers" TargetFolderName="Controllers">
+                <ProjectItem ReplaceParameters="true" TargetFileName="ToDoController.cs">ToDoController.cs</ProjectItem>
+            </Folder>
+            <ProjectItem ReplaceParameters="true" TargetFileName="Registration.cs">Registration.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="build.targets">build.targets</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="package.manifest">package.manifest</ProjectItem>
+            <Folder Name="Models" TargetFolderName="Models">
+                <ProjectItem ReplaceParameters="true" TargetFileName="Task.cs">Task.cs</ProjectItem>
+            </Folder>
+            <Folder Name="Properties" TargetFolderName="Properties">
+                <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+            </Folder>
+            <Folder Name="Scripts" TargetFolderName="Scripts">
+                <Folder Name="widgets" TargetFolderName="widgets">
+                    <Folder Name="Sample" TargetFolderName="$servernamespace$" >
+                        <ProjectItem ReplaceParameters="true" TargetFileName="$clientnamespace$.todo.js">videre.widgets.sample.todo.js</ProjectItem>
+                    </Folder>
+                </Folder>
+            </Folder>
+            <Folder Name="Services" TargetFolderName="Services">
+                <ProjectItem ReplaceParameters="true" TargetFileName="ToDo.cs">ToDo.cs</ProjectItem>
+            </Folder>
+            <Folder Name="Views" TargetFolderName="Views">
+                <Folder Name="Shared" TargetFolderName="Shared">
+                    <Folder Name="Widgets" TargetFolderName="Widgets">
+                        <Folder Name="Sample" TargetFolderName="$servernamespace$">
+                            <ProjectItem ReplaceParameters="true" TargetFileName="ToDo.cshtml">ToDo.cshtml</ProjectItem>
+                        </Folder>
+                    </Folder>
+                </Folder>
+                <ProjectItem ReplaceParameters="true" TargetFileName="Web.config">Web.config</ProjectItem>
+            </Folder>
+        </Project>
+    </TemplateContent>
+  <WizardExtension>
+    <Assembly>CodeEndeavors.VidereTemplatePackWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Assembly>
+    <FullClassName>CodeEndeavors.VidereTemplatePackWizards.VidereWidgetWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

@@ -1,0 +1,8 @@
+{
+	Version: 1.0,
+	Name: "$servernamespace$",
+	Type: "Widget",
+	Source: "Your Company Here",
+	Description: "Your Description Here",
+	PackagedDate: ""
+}
