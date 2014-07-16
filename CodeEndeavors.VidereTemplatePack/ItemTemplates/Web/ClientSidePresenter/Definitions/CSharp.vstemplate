@@ -1,0 +1,20 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <ProjectType>CSharp</ProjectType>
+    
+    <DefaultName>company.widgets.projectname.name.js</DefaultName>
+    <Name>Client-Side Presenter</Name>
+    <Description>Client javascript file using standards from Videre</Description>    
+    <Icon>icon.png</Icon>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem ReplaceParameters="true" TargetFileName="$safeitemname$.js">company.widgets.projectname.name.js</ProjectItem>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>CodeEndeavors.VidereTemplatePackWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Assembly>
+    <FullClassName>CodeEndeavors.VidereTemplatePackWizards.VidereItemWizard</FullClassName>
+  </WizardExtension>
+
+</VSTemplate>

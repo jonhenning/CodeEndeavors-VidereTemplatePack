@@ -1,0 +1,7 @@
+﻿// ---------------------- FEED ----------------------
+
+[$RootKey$\ExtensionManager\Repositories\{549d04c2-adc0-490f-8587-9cc268ca81d5}]
+@="http://nnrdev1/VisualStudioTemplates/feed.xml"
+"Priority"=dword:00000064
+"Protocol"="Atom Feed"
+"DisplayName"="NNR Videre"

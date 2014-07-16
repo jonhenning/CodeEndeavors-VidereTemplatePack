@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewWidgetItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewWidgetItemForm.Designer.cs">
+      <DependentUpon>NewWidgetItemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewWidgetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SimpleReplacementWizard.cs" />
+    <Compile Include="VidereItemWizard.cs" />
     <Compile Include="VidereWidgetWizard.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +84,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="NewWidgetItemForm.resx">
+      <DependentUpon>NewWidgetItemForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewWidgetForm.resx">
       <DependentUpon>NewWidgetForm.cs</DependentUpon>
     </EmbeddedResource>

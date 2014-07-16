@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text"></title>
+  <id>34a4e6f3-ed78-4b65-b4f5-26fa0a2360dc</id>
+  <updated>1601-01-01T00:00:00Z</updated>
+  <entry>
+    <id>34a4e6f3-ed78-4b65-b4f5-26fa0a2360dc</id>
+    <title type="text">CodeEndeavors.VidereTemplatePack</title>
+    <summary type="text">Visual Studio Templates for the Videre CMS</summary>
+    <published>2014-02-03T03:33:00Z</published>
+    <updated>1601-01-01T00:00:00Z</updated>
+    <author>
+      <name>Jon Henning</name>
+    </author>
+    <category term="Videre CMS Tools" />
+    <content type="application/octet-stream" src="http://nnrdev1/VisualStudioTemplates/CodeEndeavors.VidereTemplatePack.vsix" />
+    <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/developer/vsx-syndication-schema/2010">
+      <Id>34a4e6f3-ed78-4b65-b4f5-26fa0a2360dc</Id>
+      <Version>1.0</Version>
+      <References />
+    </Vsix>
+  </entry>
+</feed>

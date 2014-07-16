@@ -57,7 +57,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams)
         {
             _replacementsDictionary = replacementsDictionary;
-            _replacementsDictionary["WizardType"] = "SimpleReplacementWizard";
+            _replacementsDictionary["$WizardType$"] = "SimpleReplacementWizard";
             //var s = "";
             //foreach (var key in _replacementsDictionary.Keys)
             //    s += key + " = " + _replacementsDictionary[key] + ";\r\n";

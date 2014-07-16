@@ -1,6 +1,6 @@
 {
 	Version: '1.0',
-	Name: "$safeitemname$ $WizardType$ - IT CHANGED $rootnamespace$",
+	Name: "$rootnamespace$",
 	Type: "Widget, Provider, Content, etc.",
 	Source: "http://www.yoursitehere.com",
 	Description: "Description of widgets here!",

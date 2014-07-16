@@ -4,7 +4,7 @@
     
     <DefaultName>package.manifest</DefaultName>
     <Name>Package Manifest</Name>
-    <Description>Long description here</Description>    
+    <Description>Videre CMS Package Manifest file</Description>    
     <Icon>icon.png</Icon>
     <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
   </TemplateData>

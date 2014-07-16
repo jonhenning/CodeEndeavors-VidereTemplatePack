@@ -158,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ItemTemplates\Web\PackageManifest\package.manifest" />
+    <Content Include="ItemTemplates\Web\ClientSidePresenter\Definitions\CSharp.vstemplate" />
+    <Content Include="ItemTemplates\Web\ClientSidePresenter\Definitions\VB.vstemplate" />
     <None Include="packages.config" />
     <None Include="ProjectTemplates\Web\Widget\build.targets" />
     <None Include="ProjectTemplates\Web\Widget\package.manifest" />
@@ -175,6 +177,8 @@
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="ItemTemplates\Web\ClientSidePresenter\icon.png" />
+    <Content Include="ItemTemplates\Web\ClientSidePresenter\company.widgets.projectname.name.js" />
     <Content Include="Resources\Videre.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -200,9 +204,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ItemTemplates\Web\Widgets\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

@@ -8,7 +8,7 @@
 @{
     Html.RegisterWebReferenceGroup("datatables");
     var tasks = $safeprojectname$.Services.ToDo.Get();
-    Html.RegisterControlPresenter(Model, "$clientnamespace$.todo", new Dictionary<string, object>() { { "data", tasks } }); //can easily pass data from server to client-presenter
+    Html.RegisterControlPresenter("$clientnamespace$.todo", Model, new { data = tasks } ); //can easily pass data from server to client-presenter
 }
 
 <div id="@Model.GetId("Widget")">
