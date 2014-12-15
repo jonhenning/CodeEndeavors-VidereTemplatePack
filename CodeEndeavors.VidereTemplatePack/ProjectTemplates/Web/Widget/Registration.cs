@@ -28,15 +28,6 @@ namespace $safeprojectname$
                 new CoreModels.WidgetManifest() { Path = "$servernamespace$", Name = "ToDo", Title = "To Do", Category = "Sample"}
             });
 
-            // If you wish to secure an AJAX endpoint, you need to register an Area and a Name.
-            // An area is just a namespace (not a MVC area).  The Name is something to group one or more roles under.
-            // Typically the admin role will be granted the rights by default.
-            // See the LocationController for a commented line of code on how to ensure the AJAX call has rights
-            //updates += CoreServices.Update.Register(new List<CoreModels.SecureActivity>()
-            //{
-            //    new CoreModels.SecureActivity() { PortalId = CoreServices.Portal.CurrentPortalId, Area = "$servernamespace$", Name = "Administration", Roles = new List<string>() {CoreServices.Update.AdminRoleId} }
-            //});
-
             return updates; //return number of updates we have (so we can call save if something changed)
         }
 
@@ -44,7 +35,17 @@ namespace $safeprojectname$
         {
             var updates = 0;
             // add registration logic that is specific to a portal here
-            return updates;        
+
+            // If you wish to secure an AJAX endpoint, you need to register an Area and a Name.
+            // An area is just a namespace (not a MVC area).  The Name is something to group one or more roles under.
+            // Typically the admin role will be granted the rights by default.
+            // See the ToDoController for a commented line of code on how to ensure the AJAX call has rights
+            //updates += CoreServices.Update.Register(new List<CoreModels.SecureActivity>()
+            //{
+            //    new CoreModels.SecureActivity() { PortalId = portalId, Area = "$safeprojectname$", Name = "Administration", RoleIds = new List<string>() {CoreServices.Update.GetAdminRoleId(portalId)} }
+            //});
+
+            return updates;
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿videre.registerNamespace('$clientnamespace$');
-
 $clientnamespace$.todo = videre.widgets.base.extend(
 {
+    //properties - these can be easily passed from server - i.e. Html.RegisterControlPresenter("$clientnamespace$.todo", Model, new { data = tasks } )
     get_data: function() { return this._data; },
     set_data: function(v)
     {
         this._data = v;
-        this._dataDict = v.toDictionary(function(d) { return d.Id; });
+        this._dataDict = v.toDictionary(function(d) { return d.Id; });  //use extension method (videre.extensions.js) to translate the data list to a dictionary for quick lookups
     },
 
     //constructor
@@ -21,16 +21,13 @@ $clientnamespace$.todo = videre.widgets.base.extend(
 
         this._dialog = null;
 
-        //delegates that we will use more than once should be stored in member variable to minimize memory useage/leaks
-        this._delegates = {
+        this._delegates = {     //delegates that we will use more than once should be stored in member variable to minimize memory useage/leaks
             onDataReturn: videre.createDelegate(this, this._onDataReturn),
-            onDataSaveReturn: videre.createDelegate(this, this._onDataSaveReturn),
-            onActionClicked: videre.createDelegate(this, this._onActionClicked)
+            onDataSaveReturn: videre.createDelegate(this, this._onDataSaveReturn)
         };
     },
 
-    //note:  _onload is only event handler we order near the top
-    _onLoad: function(src, args)
+    _onLoad: function(src, args)    //note:  _onload is only event handler we order near the top
     {
         this._base(); //call base method
 
@@ -38,6 +35,7 @@ $clientnamespace$.todo = videre.widgets.base.extend(
         this._dialog = this.getControl('Dialog').modal('hide');
         this.getControl('btnSave').click(videre.createDelegate(this, this._onSaveClicked));
         this.getControl('btnNew').click(videre.createDelegate(this, this._onNewClicked));
+        this.getControl('ItemList').click(videre.createDelegate(this, this._onActionClicked));
 
         if (this._data != null) //since we passed the data on the initial render, no need to use ajax to fetch again
             this.bind();
@@ -48,20 +46,19 @@ $clientnamespace$.todo = videre.widgets.base.extend(
     //public methods
     refresh: function()
     {
-        this.ajax('~/$servernamespace$/ToDo/GetTasks', {}, this._delegates.onDataReturn);
+        this.ajax('~/$clientnamespace$/ToDo/GetTasks', {}, this._delegates.onDataReturn);  //make ajax call to Controller to retrieve tasks
     },
 
     bind: function()
     {
-        videre.dataTables.clear(this.getControl('ItemTable'));
-        this.getControl('ItemList').html(this.getControl('ItemListTemplate').render(this._data));
-        this.getControl('ItemList').find('.btn').click(this._delegates.onActionClicked);
-        videre.dataTables.bind(this.getControl('ItemTable'), { aoColumns: [{ bSortable: false }] });
+        videre.dataTables.clear(this.getControl('ItemTable'));  //must clear datatables in order to build a new one
+        this.getControl('ItemList').html(this.getControl('ItemListTemplate').render(this._data));       //call to jsRender template
+        videre.dataTables.bind(this.getControl('ItemTable'), { order: [1, 'asc'], columnDefs: [{ orderable: false, targets: 0 }] });    //convert table to datatable setting sort defaults
     },
 
     reset: function()
     {
-        this.clearMsgs();
+        this.clearMsgs();   //clear up any existing error messages
         this.clearMsgs(this._dialog);
     },
 
@@ -77,26 +74,25 @@ $clientnamespace$.todo = videre.widgets.base.extend(
         {
             this.reset();
             videre.UI.showModal(this._dialog);
-            this.bindData(this._selectedItem, this._dialog);
+            this.bindData(this._selectedItem, this._dialog);    //bind the data based off of data-column html attributes
         }
     },
 
     save: function()
     {
-        if (this.validControls(this._dialog, this._dialog))
+        if (this.validControls(this._dialog, this._dialog)) //perform validation on controls based off of html data attributes
         {
-            var item = this.persistData(this._selectedItem, true, this._dialog);
-            this.ajax('~/$servernamespace$/ToDo/SaveTask', { task: item }, this._delegates.onDataSaveReturn, null, this._dialog);
+            var item = this.persistData(this._selectedItem, true, this._dialog);    //persist data to item based off of data-column attributes
+            this.ajax('~/$clientnamespace$/ToDo/SaveTask', { task: item }, this._delegates.onDataSaveReturn, null, this._dialog);  //call ajax to save task, specifying dialog as container so it shows the progressbar and any errors
         }
     },
 
     deleteItem: function(id)
     {
-        //if (confirm('Are you sure you wish to remove this entry?')) //todo: localize?
-        var self = this;
-        videre.UI.confirm('Delete Entry', 'Are you sure you wish to remove this entry?', function ()
+        var self = this;    //since we are using a closure, in order for onDataSaveReturn to be accessible, we need to store a reference to this presenter
+        videre.UI.confirm('Delete Entry', 'Are you sure you wish to remove this entry?', function()    //use built in dialog logic to show confirm dialog
         {
-            self.ajax('~/$servernamespace$/ToDo/DeleteTask', { id: id }, self._delegates.onDataSaveReturn);
+            self.ajax('~/$clientnamespace$/ToDo/DeleteTask', { id: id }, self._delegates.onDataSaveReturn);
         });
     },
 
@@ -116,7 +112,7 @@ $clientnamespace$.todo = videre.widgets.base.extend(
     //event handlers (private)
     _onDataReturn: function(result, ctx)
     {
-        if (!result.HasError)
+        if (!result.HasError)   //verify result has no errors (if there was an error framework will show it in UI automatically)
         {
             this.set_data(result.Data);
             this.bind();
@@ -125,7 +121,7 @@ $clientnamespace$.todo = videre.widgets.base.extend(
 
     _onDataSaveReturn: function(result)
     {
-        if (!result.HasError && result.Data)
+        if (!result.HasError)    //verify result has no errors (if there was an error framework will show it in UI automatically)
         {
             this.refresh();
             this._dialog.modal('hide');
@@ -135,19 +131,17 @@ $clientnamespace$.todo = videre.widgets.base.extend(
     _onActionClicked: function(e)
     {
         var ctl = $(e.target).closest('[data-action]');
-        this._handleAction(ctl.data('action'), ctl.data('id'));
+        if (ctl.data('id') != null) //since we bound our click to tbody we need to ensure that we clicked on something that had an action/id
+            this._handleAction(ctl.data('action'), ctl.data('id'));
     },
 
     _onSaveClicked: function(e)
     {
-        this.save();
+        this.save();    //event handlers should contain little logic, defer to common method that other pieces of code can call
     },
 
     _onNewClicked: function(e)
     {
         this.newItem();
     }
-
-
 });
-

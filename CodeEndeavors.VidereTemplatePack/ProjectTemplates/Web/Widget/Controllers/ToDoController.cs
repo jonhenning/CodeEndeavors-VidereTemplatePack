@@ -13,7 +13,7 @@ namespace $safeprojectname$.Controllers
             //API.Execute is a helper method that wraps all of your code in the proper exception handling for an AJAX call, so all you need to write is the actual business logic as a passed in delegate
             return API.Execute<List<Models.Task>>(r =>
             {
-                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");
+                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");    //if we wanted to secure this call we would register the secure activity in the Registration.cs and uncomment this line
                 r.Data = $safeprojectname$.Services.ToDo.Get();
             });
         }
@@ -22,7 +22,7 @@ namespace $safeprojectname$.Controllers
         {
             return API.Execute<List<Models.Task>>(r =>
             {
-                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");
+                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");    //if we wanted to secure this call we would register the secure activity in the Registration.cs and uncomment this line
                 r.Data = $safeprojectname$.Services.ToDo.Save(task);
             });
         }
@@ -31,10 +31,10 @@ namespace $safeprojectname$.Controllers
         {
             return API.Execute<List<Models.Task>>(r =>
             {
-                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");
+                //Security.VerifyActivityAuthorized("$safeprojectname$", "Administration");    //if we wanted to secure this call we would register the secure activity in the Registration.cs and uncomment this line
                 r.Data = $safeprojectname$.Services.ToDo.Delete(id);
             });
         }
-        
+
     }
 }
