@@ -27,7 +27,7 @@ $clientnamespace$.$clientclassname$ = videre.widgets.base.extend(
 
         //hook up our controls onload
         //this._dialog = this.getControl('Dialog').modal('hide');
-
+        //this.getControl('ItemList').click(videre.createDelegate(this, this._onActionClicked));
         this.bind();
     },
 
@@ -42,7 +42,6 @@ $clientnamespace$.$clientclassname$ = videre.widgets.base.extend(
         this.reset();
         //videre.dataTables.clear(this.getControl('ItemTable'));
         //this.getControl('ItemList').html(this.getControl('ItemListTemplate').render(this._data));
-        //this.getControl('ItemList').find('.btn').click(this._delegates.onActionClicked);
         //videre.dataTables.bind(this.getControl('ItemTable'), { aoColumns: [{ bSortable: false }] });
     },
 
@@ -93,8 +92,21 @@ $clientnamespace$.$clientclassname$ = videre.widgets.base.extend(
     //_onActionClicked: function(e)
     //{
     //    var ctl = $(e.target).closest('[data-action]');
-    //    this._handleAction(ctl.data('action'), ctl.data('id'));
+    //    if (ctl.data('id') != null) //since we bound our click to tbody we need to ensure that we clicked on something that had an action/id
+    //        this._handleAction(ctl.data('action'), ctl.data('id'));
     //}
+
+    //events
+    //add_onSaved: function (handler) { this.get_events().addHandler('OnSaved', handler); },
+    //remove_onSaved: function (handler) { this.get_events().removeHandler('OnSaved', handler); },
+    //raiseOnSaved: function (data)
+    //{
+    //    var handler = this.get_events().getHandler('OnSaved');
+    //    if (handler)
+    //        return handler(this, { data: data });
+    //    return true;
+    //}
+
 
 });
 

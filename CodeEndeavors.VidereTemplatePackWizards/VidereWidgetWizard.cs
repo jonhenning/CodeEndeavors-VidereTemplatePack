@@ -24,7 +24,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             renameFolders(destPath);
             renameProjectItems(project);
 
-            CopyFiles(destPath, _replacementsDictionary["$videredir$"]);
+            CopyFiles(destPath, Path.Combine(_replacementsDictionary["$destinationdirectory$"], _replacementsDictionary["$videredir$"]));
         }
 
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, Microsoft.VisualStudio.TemplateWizard.WizardRunKind runKind, object[] customParams)

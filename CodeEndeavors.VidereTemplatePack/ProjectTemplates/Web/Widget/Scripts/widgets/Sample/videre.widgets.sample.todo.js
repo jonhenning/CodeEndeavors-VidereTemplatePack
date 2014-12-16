@@ -144,4 +144,17 @@ $clientnamespace$.todo = videre.widgets.base.extend(
     {
         this.newItem();
     }
+
+    //events
+    //add_onSaved: function (handler) { this.get_events().addHandler('OnSaved', handler); },
+    //remove_onSaved: function (handler) { this.get_events().removeHandler('OnSaved', handler); },
+    //raiseOnSaved: function (data)
+    //{
+    //    var handler = this.get_events().getHandler('OnSaved');
+    //    if (handler)
+    //        return handler(this, { data: data });
+    //    return true;
+    //}
+
+
 });

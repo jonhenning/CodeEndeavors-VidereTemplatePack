@@ -39,7 +39,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         private bool validForm()
         {
             var err = "";
-            var videreDir = txtVidereDir.Text;
+            var videreDir = Path.Combine(_replacementsDictionary["$destinationdirectory$"], txtVidereDir.Text);
             if (txtServerNamespace.Text.IndexOf(" ") > -1)    //todo:  use regex
                 err = "Invalid Namespace";
             if (txtClientNamespace.Text.IndexOf(" ") > -1)    //todo:  use regex
@@ -80,9 +80,8 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                txtVidereDir.Text = folderBrowserDialog1.SelectedPath;
+                txtVidereDir.Text = makeRelative(folderBrowserDialog1.SelectedPath, _replacementsDictionary["$destinationdirectory$"]);
             }
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -101,8 +100,10 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         {
             if (validForm())
             {
-                Properties.Settings.Default.VidereDir = txtVidereDir.Text;
-                _replacementsDictionary["$videredir$"] = txtVidereDir.Text;
+                var videreDir = txtVidereDir.Text;
+
+                Properties.Settings.Default.VidereDir = videreDir;
+                _replacementsDictionary["$videredir$"] = videreDir;
                 _replacementsDictionary["$servernamespace$"] = txtServerNamespace.Text;
                 _replacementsDictionary["$clientnamespace$"] = txtClientNamespace.Text;
 
@@ -112,5 +113,13 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             }
         }
 
+        private string makeRelative(string filePath, string referencePath)
+        {
+            if (referencePath.EndsWith("\\") == false)
+                referencePath += "\\";
+            var fileUri = new Uri(filePath);
+            var referenceUri = new Uri(referencePath);
+            return referenceUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar);
+        }
     }
 }
