@@ -1,4 +1,7 @@
-﻿videre.registerNamespace('$clientnamespace$');
+﻿/// <reference path="..\..\..\$videredir$\scripts\videre.extensions.js" />
+/// <reference path="..\..\..\$videredir$\scripts\videre.js" />
+
+videre.registerNamespace('$clientnamespace$');
 
 $clientnamespace$.$clientclassname$ = videre.widgets.base.extend(
 {

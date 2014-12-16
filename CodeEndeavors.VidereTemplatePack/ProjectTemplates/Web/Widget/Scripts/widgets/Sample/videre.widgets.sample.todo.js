@@ -1,4 +1,7 @@
-﻿videre.registerNamespace('$clientnamespace$');
+﻿/// <reference path="..\..\..\$videredir$\scripts\videre.extensions.js" />
+/// <reference path="..\..\..\$videredir$\scripts\videre.js" />
+
+videre.registerNamespace('$clientnamespace$');
 $clientnamespace$.todo = videre.widgets.base.extend(
 {
     //properties - these can be easily passed from server - i.e. Html.RegisterControlPresenter("$clientnamespace$.todo", Model, new { data = tasks } )
