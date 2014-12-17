@@ -5,6 +5,7 @@ using EnvDTE;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.VisualStudio.TemplateWizard;
+using System.Reflection;
 
 namespace CodeEndeavors.VidereTemplatePackWizards
 {
@@ -55,14 +56,15 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             
             SafeCopy(Path.Combine(viderePath, @"bin\System.Web.Mvc.dll"), Path.Combine(libDir, "System.Web.Mvc.dll"));
 
-            var sourceTargetBuildPath = Path.Combine(viderePath, @"..\lib\MSBuildTargets\");
             var destTargetBuildPath = Path.Combine(libDir, "MSBuildTargets");
-
-            //copy msbuild extensions to lib - TODO: installer could include these!
-            //sourceTargetBuildPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Code Endeavors, LLC", "InstallPath", @"c:\").ToString();
 
             if (!Directory.Exists(destTargetBuildPath))
                 Directory.CreateDirectory(destTargetBuildPath);
+
+            //var sourceTargetBuildPath = Path.Combine(viderePath, @"..\lib\MSBuildTargets\");
+            //copy msbuild extensions to lib - TODO: installer could include these!
+            //sourceTargetBuildPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Code Endeavors, LLC", "InstallPath", @"c:\").ToString();
+            var sourceTargetBuildPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "lib");
 
             SafeCopy(Path.Combine(sourceTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), Path.Combine(destTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), true);
             SafeCopy(Path.Combine(sourceTargetBuildPath, "MSBuild.Community.Tasks.dll"), Path.Combine(destTargetBuildPath, "MSBuild.Community.Tasks.dll"), true);

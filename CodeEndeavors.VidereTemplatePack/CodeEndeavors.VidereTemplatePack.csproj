@@ -122,6 +122,9 @@
     <None Include="ItemTemplates\Web\PackageManifest\package.manifest" />
     <Content Include="ItemTemplates\Web\ClientSidePresenter\Definitions\CSharp.vstemplate" />
     <Content Include="ItemTemplates\Web\ClientSidePresenter\Definitions\VB.vstemplate" />
+    <Content Include="lib\MSBuild.Community.Tasks.Targets">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="packages.config" />
     <None Include="ProjectTemplates\Web\Widget\build.targets" />
     <None Include="ProjectTemplates\Web\Widget\package.manifest" />
@@ -141,6 +144,14 @@
   <ItemGroup>
     <Resource Include="ItemTemplates\Web\ClientSidePresenter\icon.png" />
     <Content Include="ItemTemplates\Web\ClientSidePresenter\company.widgets.projectname.name.js" />
+    <Content Include="lib\ICSharpCode.SharpZipLib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="lib\MSBuild.Community.Tasks.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\Videre.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -177,7 +188,7 @@
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(TemplateBuilderTargets)" Condition="Exists('$(TemplateBuilderTargets)')" Label="TemplateBuilder" />
-  <Import Project="$(SolutionDir)\vsixbuild.targets" Condition="Exists('$(SolutionDir)\vsixbuild.targets')" />  
+  <Import Project="$(SolutionDir)\vsixbuild.targets" Condition="Exists('$(SolutionDir)\vsixbuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
