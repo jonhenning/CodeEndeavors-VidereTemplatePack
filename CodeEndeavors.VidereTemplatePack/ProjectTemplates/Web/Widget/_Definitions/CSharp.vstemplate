@@ -21,6 +21,8 @@
             <ProjectItem ReplaceParameters="true" TargetFileName="Registration.cs">Registration.cs</ProjectItem>
             <ProjectItem ReplaceParameters="true" TargetFileName="build.targets">build.targets</ProjectItem>
             <ProjectItem ReplaceParameters="true" TargetFileName="package.manifest">package.manifest</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="Web.config">Web.config</ProjectItem>
             <Folder Name="Models" TargetFolderName="Models">
                 <ProjectItem ReplaceParameters="true" TargetFileName="Task.cs">Task.cs</ProjectItem>
             </Folder>

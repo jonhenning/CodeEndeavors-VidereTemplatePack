@@ -6,12 +6,24 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.VisualStudio.TemplateWizard;
 using System.Reflection;
+using EnvDTE80;
+using EnvDTE100;
+using TemplateBuilder;
+using System.Threading;
+using System.Linq;
+using Microsoft.Web.Administration;
+using System.Security.AccessControl;
+
 
 namespace CodeEndeavors.VidereTemplatePackWizards
 {
     public class VidereWidgetWizard : Microsoft.VisualStudio.TemplateWizard.IWizard
     {
         private Dictionary<string, string> _replacementsDictionary = null;
+
+        private DTE2 _dte2;
+        private Solution4 _solution;
+        //private IList<Project> _existingProjects;
 
         public void ProjectFinishedGenerating(Project project)
         {
@@ -31,11 +43,85 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, Microsoft.VisualStudio.TemplateWizard.WizardRunKind runKind, object[] customParams)
         {
             _replacementsDictionary = replacementsDictionary;
+
+            _dte2 = automationObject as DTE2;
+            if (_dte2 != null) _solution = (Solution4)_dte2.Solution;
+
             if (NewWidgetForm.ShowDialog(replacementsDictionary) == false)
                     throw new WizardCancelledException("The wizard has been cancelled by the user.");
+
+            //_existingProjects = getProjects() ?? new Project[0];
         }
 
-        public void RunFinished() { }
+        public void RunFinished() 
+        {
+            if (_solution == null)
+            {
+                throw new Exception("No solution found.");
+            }
+
+            var projects = getProjects().ToList();//.Except(_existingProjects).ToList();
+            if (projects == null || !projects.Any()) throw new Exception("No projects found.");
+
+            ////projects = projects.OrderByDescending(p => p.Name).ToList();    //don't copy the one that matches the same name until END... LOSE ENTIRE FOLDER STRUCTURE THIS WAY
+
+            ////Get the projects directory from first project.
+            var originalProjectsDir = Path.GetDirectoryName(projects.First().FullName);
+            if (originalProjectsDir == null) return;
+            var tempProjectsDir = originalProjectsDir + ".temp";
+
+            var solutionDir = new DirectoryInfo(originalProjectsDir).Parent.FullName;
+            ////var solutionStructure = projects.Select(p => new KeyValuePair<Project, string>(null, Path.Combine(solutionDir, Path.GetFileNameWithoutExtension(Path.GetFileName(p.FullName))))).ToList();
+            var newSolutionProjects = projects.Select(p => Path.Combine(Path.Combine(solutionDir, Path.GetFileNameWithoutExtension(Path.GetFileName(p.FullName))), Path.GetFileName(p.FullName))).ToList();
+
+            var slnFileName = Path.Combine(solutionDir, new DirectoryInfo(originalProjectsDir).Name + ".sln");
+            _solution.SaveAs(slnFileName);
+
+            //get project references
+            var projectReferences = new Dictionary<string, List<string>>();
+            foreach (var project in projects)
+            {
+                projectReferences[project.Name] = new List<string>();
+
+                var vsProj = project.Object as VSLangProj.VSProject;
+                foreach (VSLangProj.Reference reference in vsProj.References)
+                {
+                    if (reference.SourceProject != null)
+                        projectReferences[project.Name].Add(reference.SourceProject.Name);
+                }
+            }
+
+            //Remove the projects from the solution
+            foreach (var project in projects)
+            {
+                _solution.Remove(project);
+                _solution.SaveAs(slnFileName);
+            }
+
+            //move the project dir to temp dir (we have same name between our projects dir and the service dir)
+            Directory.Move(originalProjectsDir, tempProjectsDir);
+            copyDirectory(tempProjectsDir, originalProjectsDir);    //move all contents of directory into original dir
+
+            //Restructure solution
+            foreach (var projectFile in newSolutionProjects)
+            {
+                _solution.AddFromFile(projectFile, false);
+                _solution.SaveAs(slnFileName);
+            }
+
+            //add project references back
+            var newProjects = getProjects();
+            var projectDict = newProjects.ToDictionary(p => p.Name);
+            foreach (var project in newProjects)
+            {
+                var vsProj = project.Object as VSLangProj.VSProject;
+                foreach (var projectName in projectReferences[project.Name])
+                    vsProj.References.AddProject(projectDict[projectName]);
+            }
+
+            Directory.Delete(tempProjectsDir, true);  //remove 
+        }
+
         public void BeforeOpeningFile(ProjectItem projectItem) { }
         // This method is only called for item templates, not for project templates.
         public void ProjectItemFinishedGenerating(ProjectItem projectItem) { }
@@ -51,10 +137,10 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             var libDir = projDir.FullName + @"\lib";
             if (!Directory.Exists(libDir))
                 Directory.CreateDirectory(libDir);
-            SafeCopy(Path.Combine(viderePath, @"bin\Videre.Core.dll"), Path.Combine(libDir, "Videre.Core.dll"));
-            SafeCopy(Path.Combine(viderePath, @"bin\CodeEndeavors.Extensions.dll"), Path.Combine(libDir, "CodeEndeavors.Extensions.dll"));
+            //SafeCopy(Path.Combine(viderePath, @"bin\Videre.Core.dll"), Path.Combine(libDir, "Videre.Core.dll"));
+            //SafeCopy(Path.Combine(viderePath, @"bin\CodeEndeavors.Extensions.dll"), Path.Combine(libDir, "CodeEndeavors.Extensions.dll"));
             
-            SafeCopy(Path.Combine(viderePath, @"bin\System.Web.Mvc.dll"), Path.Combine(libDir, "System.Web.Mvc.dll"));
+            //SafeCopy(Path.Combine(viderePath, @"bin\System.Web.Mvc.dll"), Path.Combine(libDir, "System.Web.Mvc.dll"));
 
             var destTargetBuildPath = Path.Combine(libDir, "MSBuildTargets");
 
@@ -69,6 +155,22 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             SafeCopy(Path.Combine(sourceTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), Path.Combine(destTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), true);
             SafeCopy(Path.Combine(sourceTargetBuildPath, "MSBuild.Community.Tasks.dll"), Path.Combine(destTargetBuildPath, "MSBuild.Community.Tasks.dll"), true);
             SafeCopy(Path.Combine(sourceTargetBuildPath, "MSBuild.Community.Tasks.Targets"), Path.Combine(destTargetBuildPath, "MSBuild.Community.Tasks.Targets"), true);
+
+            //setFolderPermissions(serviceHostDir, @"iis apppool\" + name);        
+
+        }
+
+        private static void setFolderPermissions(string dirPath, string user)
+        {
+            var dir = new DirectoryInfo(dirPath);
+            var ds = dir.GetAccessControl();
+            ds.AddAccessRule(new FileSystemAccessRule(user,
+            FileSystemRights.FullControl,
+            InheritanceFlags.ObjectInherit |
+            InheritanceFlags.ContainerInherit,
+            PropagationFlags.None,
+            AccessControlType.Allow));
+            dir.SetAccessControl(ds);
         }
 
         private void SafeCopy(string from, string to, bool bypassError = false)
@@ -83,6 +185,77 @@ namespace CodeEndeavors.VidereTemplatePackWizards
                     MessageBox.Show(ex.Message);    //keep going!
             }
         }
+
+        private void safeCopy(string from, string to, bool bypassError = false)
+        {
+            try
+            {
+                File.Copy(from, to, true);
+            }
+            catch (Exception ex)
+            {
+                //if (bypassError == false)
+                MessageBox.Show(ex.Message);    //keep going!
+            }
+        }
+
+        private void copyDirectory(string sourceFolder, string destinationFolder)
+        {
+            if (!Directory.Exists(destinationFolder))
+                Directory.CreateDirectory(destinationFolder);
+
+            var dirInfo = new DirectoryInfo(sourceFolder);
+            var files = dirInfo.GetFiles();
+            foreach (var tempfile in files)
+            {
+                if (!File.Exists(Path.Combine(destinationFolder, tempfile.Name)))
+                    tempfile.CopyTo(Path.Combine(destinationFolder, tempfile.Name), false);
+            }
+
+            var directories = dirInfo.GetDirectories();
+            foreach (var tempdir in directories)
+                copyDirectory(Path.Combine(sourceFolder, tempdir.Name), Path.Combine(destinationFolder, tempdir.Name));
+
+        }
+
+        private IList<Project> getProjects()
+        {
+            var projects = _solution.Projects;
+            var list = new List<Project>();
+            var item = projects.GetEnumerator();
+
+            while (item.MoveNext())
+            {
+                var project = item.Current as Project;
+                if (project == null)
+                    continue;
+
+                if (project.Kind == ProjectKinds.vsProjectKindSolutionFolder)
+                    list.AddRange(getSolutionFolderProjects(project));
+                else
+                    list.Add(project);
+            }
+            return list;
+        }
+
+        private static IEnumerable<Project> getSolutionFolderProjects(Project solutionFolder)
+        {
+            var list = new List<Project>();
+            for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++)
+            {
+                var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
+                if (subProject == null)
+                    continue;
+
+                // If this is another solution folder, do a recursive call, otherwise add
+                if (subProject.Kind == EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder)
+                    list.AddRange(getSolutionFolderProjects(subProject));
+                else
+                    list.Add(subProject);
+            }
+            return list;
+        }
+
 
         private void renameProjectItems(Project project)
         {

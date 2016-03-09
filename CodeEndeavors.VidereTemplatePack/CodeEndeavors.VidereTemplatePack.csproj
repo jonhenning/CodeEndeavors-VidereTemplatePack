@@ -125,12 +125,17 @@
     <Content Include="lib\MSBuild.Community.Tasks.Targets">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ProjectTemplates\Web\Widget\build.targets" />
     <None Include="ProjectTemplates\Web\Widget\package.manifest" />
+    <None Include="ProjectTemplates\Web\Widget\packages.config" />
     <None Include="ProjectTemplates\Web\Widget\Views\Shared\Widgets\Sample\ToDo.cshtml" />
     <None Include="ProjectTemplates\Web\Widget\Views\Web.config" />
-    <None Include="ProjectTemplates\Web\Widget\Web.config" />
+    <None Include="ProjectTemplates\Web\Widget\Web.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\template-builder.props">
       <SubType>Designer</SubType>
     </None>
@@ -171,7 +176,9 @@
     <Content Include="ProjectTemplates\Web\Widget\_Definitions\CSharp.vstemplate">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ProjectTemplates\Web\Widget\videre.widget.csproj" />
+    <Content Include="ProjectTemplates\Web\Widget\videre.widget.csproj">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\Package.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
