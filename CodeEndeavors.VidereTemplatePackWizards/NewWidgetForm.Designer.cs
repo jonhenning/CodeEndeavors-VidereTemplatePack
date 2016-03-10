@@ -32,6 +32,7 @@
             this.txtVidereDir = new System.Windows.Forms.TextBox();
             this.lblVidereDir = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,18 +43,19 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lblInstructions = new System.Windows.Forms.Label();
-            this.picLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtVidereWebsite = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtVidereDir
             // 
             this.txtVidereDir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVidereDir.Location = new System.Drawing.Point(158, 3);
+            this.txtVidereDir.Location = new System.Drawing.Point(157, 3);
             this.txtVidereDir.Name = "txtVidereDir";
             this.txtVidereDir.Size = new System.Drawing.Size(194, 20);
             this.txtVidereDir.TabIndex = 1;
@@ -65,13 +67,13 @@
             this.lblVidereDir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVidereDir.Location = new System.Drawing.Point(3, 0);
             this.lblVidereDir.Name = "lblVidereDir";
-            this.lblVidereDir.Size = new System.Drawing.Size(149, 26);
+            this.lblVidereDir.Size = new System.Drawing.Size(148, 26);
             this.lblVidereDir.TabIndex = 29;
             this.lblVidereDir.Text = "Videre Directory";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.panel1.Controls.Add(this.picLogo);
@@ -81,6 +83,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(429, 42);
             this.panel1.TabIndex = 20;
+            // 
+            // picLogo
+            // 
+            this.picLogo.Image = global::CodeEndeavors.VidereTemplatePackWizards.Properties.Resources.CodeEndeavorsIncLogo;
+            this.picLogo.Location = new System.Drawing.Point(12, 7);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(99, 26);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picLogo.TabIndex = 7;
+            this.picLogo.TabStop = false;
             // 
             // btnCancel
             // 
@@ -111,14 +123,14 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(3, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 26);
+            this.label2.Size = new System.Drawing.Size(148, 26);
             this.label2.TabIndex = 25;
             this.label2.Text = "Client Namespace";
             // 
             // txtClientNamespace
             // 
             this.txtClientNamespace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtClientNamespace.Location = new System.Drawing.Point(158, 55);
+            this.txtClientNamespace.Location = new System.Drawing.Point(157, 55);
             this.txtClientNamespace.Name = "txtClientNamespace";
             this.txtClientNamespace.Size = new System.Drawing.Size(194, 20);
             this.txtClientNamespace.TabIndex = 3;
@@ -129,21 +141,21 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 26);
+            this.label1.Size = new System.Drawing.Size(148, 26);
             this.label1.TabIndex = 27;
             this.label1.Text = "Server Namespace";
             // 
             // txtServerNamespace
             // 
             this.txtServerNamespace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtServerNamespace.Location = new System.Drawing.Point(158, 29);
+            this.txtServerNamespace.Location = new System.Drawing.Point(157, 29);
             this.txtServerNamespace.Name = "txtServerNamespace";
             this.txtServerNamespace.Size = new System.Drawing.Size(194, 20);
             this.txtServerNamespace.TabIndex = 2;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(358, 3);
+            this.btnBrowse.Location = new System.Drawing.Point(357, 3);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(28, 20);
             this.btnBrowse.TabIndex = 1;
@@ -157,7 +169,9 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.64641F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.35359F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txtVidereWebsite, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.txtVidereDir, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblVidereDir, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -167,13 +181,14 @@
             this.tableLayoutPanel1.Controls.Add(this.btnBrowse, 2, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 94);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(402, 164);
             this.tableLayoutPanel1.TabIndex = 23;
             // 
@@ -186,16 +201,6 @@
             this.lblInstructions.Text = "Welcome to the Videre Widget Wizard.  Please enter the fields below to initialize" +
     " your project.";
             // 
-            // picLogo
-            // 
-            this.picLogo.Image = global::CodeEndeavors.VidereTemplatePackWizards.Properties.Resources.CodeEndeavorsIncLogo;
-            this.picLogo.Location = new System.Drawing.Point(12, 7);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(99, 26);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picLogo.TabIndex = 7;
-            this.picLogo.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CodeEndeavors.VidereTemplatePackWizards.Properties.Resources.icon;
@@ -206,6 +211,25 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // txtVidereWebsite
+            // 
+            this.txtVidereWebsite.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtVidereWebsite.Location = new System.Drawing.Point(157, 81);
+            this.txtVidereWebsite.Name = "txtVidereWebsite";
+            this.txtVidereWebsite.Size = new System.Drawing.Size(194, 20);
+            this.txtVidereWebsite.TabIndex = 30;
+            this.txtVidereWebsite.Text = "http://dev.branch.nnrportal.com";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(148, 26);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Videre Website";
             // 
             // NewWidgetForm
             // 
@@ -223,9 +247,9 @@
             this.Text = "Videre Widget Wizard";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,6 +273,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblInstructions;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtVidereWebsite;
 
     }
 }

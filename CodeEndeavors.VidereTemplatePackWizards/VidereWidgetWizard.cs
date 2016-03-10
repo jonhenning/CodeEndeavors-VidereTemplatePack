@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using EnvDTE;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -13,6 +14,7 @@ using System.Threading;
 using System.Linq;
 using Microsoft.Web.Administration;
 using System.Security.AccessControl;
+using PSHostsFile;
 
 
 namespace CodeEndeavors.VidereTemplatePackWizards
@@ -37,7 +39,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             renameFolders(destPath);
             renameProjectItems(project);
 
-            CopyFiles(destPath, Path.Combine(_replacementsDictionary["$destinationdirectory$"], _replacementsDictionary["$videredir$"]));
+            CopyFiles(destPath);
         }
 
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, Microsoft.VisualStudio.TemplateWizard.WizardRunKind runKind, object[] customParams)
@@ -131,33 +133,73 @@ namespace CodeEndeavors.VidereTemplatePackWizards
             return true;
         }
 
-        private void CopyFiles(string destPath, string viderePath)
+        private void CopyFiles(string destPath)
         {
+            var viderePath = Path.Combine(_replacementsDictionary["$destinationdirectory$"], _replacementsDictionary["$videredir$"]);
             var projDir = new FileInfo(destPath).Directory;
             var libDir = projDir.FullName + @"\lib";
             if (!Directory.Exists(libDir))
                 Directory.CreateDirectory(libDir);
-            //SafeCopy(Path.Combine(viderePath, @"bin\Videre.Core.dll"), Path.Combine(libDir, "Videre.Core.dll"));
-            //SafeCopy(Path.Combine(viderePath, @"bin\CodeEndeavors.Extensions.dll"), Path.Combine(libDir, "CodeEndeavors.Extensions.dll"));
-            
-            //SafeCopy(Path.Combine(viderePath, @"bin\System.Web.Mvc.dll"), Path.Combine(libDir, "System.Web.Mvc.dll"));
-
             var destTargetBuildPath = Path.Combine(libDir, "MSBuildTargets");
 
             if (!Directory.Exists(destTargetBuildPath))
                 Directory.CreateDirectory(destTargetBuildPath);
-
-            //var sourceTargetBuildPath = Path.Combine(viderePath, @"..\lib\MSBuildTargets\");
-            //copy msbuild extensions to lib - TODO: installer could include these!
-            //sourceTargetBuildPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Code Endeavors, LLC", "InstallPath", @"c:\").ToString();
             var sourceTargetBuildPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "lib");
 
             SafeCopy(Path.Combine(sourceTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), Path.Combine(destTargetBuildPath, "ICSharpCode.SharpZipLib.dll"), true);
             SafeCopy(Path.Combine(sourceTargetBuildPath, "MSBuild.Community.Tasks.dll"), Path.Combine(destTargetBuildPath, "MSBuild.Community.Tasks.dll"), true);
             SafeCopy(Path.Combine(sourceTargetBuildPath, "MSBuild.Community.Tasks.Targets"), Path.Combine(destTargetBuildPath, "MSBuild.Community.Tasks.Targets"), true);
 
-            //setFolderPermissions(serviceHostDir, @"iis apppool\" + name);        
+            var videreDir = viderePath;
+            var sourceViderePortal = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ProjectTemplates\Web\ViderePortalZip");
+            if (_replacementsDictionary.ContainsKey("CreateVidereWeb") && _replacementsDictionary["CreateVidereWeb"] == "true")
+            {
+                copyDirectory(sourceViderePortal, videreDir);
+                var videreInstallPath = Path.Combine(videreDir, "Videre.Core.Web.NewInstall.zip");
+                ZipFile.ExtractToDirectory(videreInstallPath, videreDir);
+                File.Delete(videreInstallPath); //remove the zip file
 
+                var url = _replacementsDictionary["$viderewebsite$"];
+                var uri = new Uri(url);
+                var name = uri.Host;
+                var resolvedServiceHostDir = new DirectoryInfo(videreDir).FullName;
+                createSite(resolvedServiceHostDir, name, name, name);
+
+                if (PSHostsFile.HostsFile.Get().Where(e => e.Hostname.Equals(name, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault() == null)
+                {
+                    if (MessageBox.Show("Do you wish to add a HOSTS file entry for " + name + "?", "Add Hosts Entry", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        PSHostsFile.HostsFile.Set(name, "127.0.0.1");
+                }
+                
+                setFolderPermissions(videreDir, @"iis apppool\" + name);
+            }
+                    
+
+        }
+
+        private static void createSite(string directoryPath, string siteName, string host, string poolName)
+        {
+            using (var serverManager = new ServerManager())
+            {
+                if (serverManager.ApplicationPools[poolName] == null)
+                {
+                    var newPool = serverManager.ApplicationPools.Add(poolName);
+                    newPool.ManagedRuntimeVersion = "v4.0";
+                    serverManager.CommitChanges();
+                }
+
+                if (serverManager.Sites[siteName] == null)
+                {
+                    //bindingInformation = Address:Port:Host
+                    var bindingInformation = string.Format("{0}:{1}:{2}", "*", "80", host);
+                    var newSite = serverManager.Sites.Add(siteName, "http", bindingInformation, directoryPath);
+                    newSite.ApplicationDefaults.ApplicationPoolName = poolName;
+
+                    //var app = newSite.Applications.Add("/" + applicationName, directoryPath);
+                    //app.ApplicationPoolName = poolName;
+                    serverManager.CommitChanges();
+                }
+            }
         }
 
         private static void setFolderPermissions(string dirPath, string user)

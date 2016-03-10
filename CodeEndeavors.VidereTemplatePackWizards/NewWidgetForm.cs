@@ -32,6 +32,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
 
             form.folderBrowserDialog1.SelectedPath = Properties.Settings.Default.VidereDir;
             form.txtVidereDir.Text = Properties.Settings.Default.VidereDir;
+            form.txtVidereWebsite.Text = "http://" + safeProjectName; 
 
             return form.ShowDialog() == DialogResult.OK;
         }
@@ -40,17 +41,26 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         {
             var err = "";
             var videreDir = Path.Combine(_replacementsDictionary["$destinationdirectory$"], txtVidereDir.Text);
+            
             if (txtServerNamespace.Text.IndexOf(" ") > -1)    //todo:  use regex
                 err = "Invalid Namespace";
             if (txtClientNamespace.Text.IndexOf(" ") > -1)    //todo:  use regex
                 err = "Invalid Namespace";
 
-            if (Directory.Exists(videreDir))
+            //if (Directory.Exists(videreDir))
+            //{
+            //    err = fileExists(videreDir, "bin\\Videre.Core.dll");
+            //}
+            //else
+            //    err = string.Format("Videre Directory {0} does not exist.  Please select the location of your videre web installation", videreDir);
+
+            if (!Directory.Exists(videreDir) || fileExists(videreDir, "bin\\Videre.Core.dll").Length > 0)
             {
-                err = fileExists(videreDir, "bin\\Videre.Core.dll");
+                if (MessageBox.Show("Directory is not a Videre Web Directory.  Do you wish to create one?", "Create Videre Web Portal", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    _replacementsDictionary["CreateVidereWeb"] = "true";
+                else
+                    err = string.Format("Videre Directory {0} does not exist.  Please select the location of your videre web installation", videreDir);
             }
-            else
-                err = string.Format("Videre Directory {0} does not exist.  Please select the location of your videre web installation", videreDir);
 
             if (!string.IsNullOrEmpty(err))
             {
@@ -104,6 +114,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
 
                 Properties.Settings.Default.VidereDir = videreDir;
                 _replacementsDictionary["$videredir$"] = videreDir;
+                _replacementsDictionary["$viderewebsite$"] = txtVidereWebsite.Text;
                 _replacementsDictionary["$servernamespace$"] = txtServerNamespace.Text;
                 _replacementsDictionary["$clientnamespace$"] = txtClientNamespace.Text;
 
