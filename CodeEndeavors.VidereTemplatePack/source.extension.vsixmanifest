@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="34a4e6f3-ed78-4b65-b4f5-26fa0a2360dc" Version="1.0" Language="en-US" Publisher="Code Endeavors, Inc." />
-    <DisplayName>CodeEndeavors.VidereTemplatePack</DisplayName>
+    <DisplayName>Code Endeavors Videre Template Pack</DisplayName>
     <Description>Visual Studio Templates for the Videre CMS</Description>
     <MoreInfo>http://www.viderecms.com/</MoreInfo>
     <License>license.txt</License>
