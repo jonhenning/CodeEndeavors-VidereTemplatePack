@@ -172,8 +172,8 @@ namespace CodeEndeavors.VidereTemplatePackWizards
                 }
                 
                 setFolderPermissions(videreDir, @"iis apppool\" + name);
+                setFolderPermissions(videreDir, @"IUSR");
             }
-                    
 
         }
 
