@@ -5,6 +5,7 @@ using EnvDTE;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Microsoft.VisualStudio.TemplateWizard;
+using EnvDTE100;
 
 namespace CodeEndeavors.VidereTemplatePackWizards
 {
@@ -20,6 +21,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
         public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, Microsoft.VisualStudio.TemplateWizard.WizardRunKind runKind, object[] customParams)
         {
             replacementsDictionary["$safeitemnamecamelcase$"] = char.ToLowerInvariant(replacementsDictionary["$safeitemname$"][0]) + replacementsDictionary["$safeitemname$"].Substring(1);
+            replacementsDictionary["$lowercasesafeitemname$"] = replacementsDictionary["$safeitemname$"].ToLower();
             var safeItemName = replacementsDictionary["$safeitemname$"];
             var rootnamespace = replacementsDictionary["$rootnamespace$"];
             if (rootnamespace.Contains("Controller"))
@@ -37,6 +39,12 @@ namespace CodeEndeavors.VidereTemplatePackWizards
                 replacementsDictionary["$originalsafeitemname$"] = safeItemName;
             }
             _replacementsDictionary = replacementsDictionary;
+
+            //_DTE dte = automationObject as _DTE;
+            //Solution4 solution = (Solution4)dte.Solution;
+            //replacementsDictionary["$solutionname$"] = solution.Properties.Item("Name").Value.ToString();
+            //replacementsDictionary["$lowercasesolutionname$"] = replacementsDictionary["$solutionname$"].ToLower();
+
             if (!rootnamespace.Contains("Controller") && !rootnamespace.Contains("Services"))
             {
                 if (NewWidgetItemForm.ShowDialog(replacementsDictionary, automationObject as DTE) == false)

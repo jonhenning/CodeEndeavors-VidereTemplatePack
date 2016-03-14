@@ -34,7 +34,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
                 
                 var safeProjectName = activeProj.Properties.Item("RootNamespace").Value.Replace(" ", ".");    //todo:::!::!:!!:
                 form.txtServerNamespace.Text = safeProjectName;
-
+                replacementsDictionary["$servernamespace$"] = safeProjectName;
                 //foreach (ProjectItem pi in activeProj.ProjectItems)
                 //{
                     // Do something for the project items like filename checks etc.
@@ -50,7 +50,7 @@ namespace CodeEndeavors.VidereTemplatePackWizards
                 clientClassName = clientNamespace.Substring(clientNamespace.LastIndexOf(".") + 1);
                 clientNamespace = clientNamespace.Substring(0, clientNamespace.LastIndexOf("."));
             }
-            form.txtClientNamespace.Text = clientNamespace.ToLower();
+            form.txtClientNamespace.Text = replacementsDictionary["$servernamespace$"].ToLower();//clientNamespace.ToLower();
             form._replacementsDictionary["$clientclassname$"] = clientClassName.ToLower();
 
 
