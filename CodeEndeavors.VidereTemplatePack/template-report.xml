@@ -2,6 +2,7 @@
 <TemplateReport>
   <ItemTemplates>
     <ItemTemplate Path="ItemTemplates\Web\BaseController\Definitions\CSharp.vstemplate" Name="Base Controller Item Template" Description="Base Controller Item template for Videre Widgets" ProjectType="CSharp" ProjectSubType="" />
+    <ItemTemplate Path="ItemTemplates\Web\ClientView\Definitions\CSharp.vstemplate" Name="Client View Template" Description="Client HTML Template" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Web\ClientSidePresenter\Definitions\CSharp.vstemplate" Name="Client-Side Presenter" Description="Client javascript file using standards from Videre" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Web\ListItem\Definitions\CSharp.vstemplate" Name="List Item Template" Description="List HTML and Client Side Presenter" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Web\PackageManifest\Definitions\CSharp.vstemplate" Name="Package Manifest" Description="Videre CMS Package Manifest file" ProjectType="CSharp" ProjectSubType="" />

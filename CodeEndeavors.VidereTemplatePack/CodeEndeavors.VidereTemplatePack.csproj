@@ -98,6 +98,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Resource Include="ItemTemplates\Web\BaseController\icon.png" />
+    <Content Include="ItemTemplates\Web\ClientView\Definitions\CSharp.vstemplate" />
+    <Resource Include="ItemTemplates\Web\ClientView\icon.png" />
     <Content Include="ItemTemplates\Web\ListItem\Definitions\CSharp.vstemplate" />
     <Resource Include="ItemTemplates\Web\ListItem\icon.png" />
     <Content Include="ItemTemplates\Web\ListItem\clientpresenter.js" />
@@ -129,6 +131,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ItemTemplates\Web\ClientView\View.cshtml" />
     <None Include="ItemTemplates\Web\ListItem\list.cshtml" />
     <None Include="ItemTemplates\Web\PackageManifest\package.manifest" />
     <Content Include="ItemTemplates\Web\Service\Definitions\CSharp.vstemplate" />
