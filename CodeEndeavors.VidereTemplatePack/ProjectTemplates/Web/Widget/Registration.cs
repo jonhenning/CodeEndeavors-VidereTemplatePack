@@ -27,6 +27,16 @@ namespace $safeprojectname$
             {
                 new CoreModels.WidgetManifest() { Path = "$servernamespace$", Name = "ToDo", Title = "To Do", Category = "Sample"}
             });
+            //updates += CoreServices.Menu.AddMenuItem("MainMenu", new MenuItem()
+            //    {
+            //        Text = "Provisioning",
+            //        Items = new List<MenuItem>()
+            //        {
+            //            new MenuItem() { Text = "Server", Url = "~/provisioning/server"},
+            //            new MenuItem() { Text = "Database", Url = "~/provisioning/database"}
+            //        }
+            //    }, 1);
+
 
             return updates; //return number of updates we have (so we can call save if something changed)
         }
@@ -44,6 +54,9 @@ namespace $safeprojectname$
             //{
             //    new CoreModels.SecureActivity() { PortalId = portalId, Area = "$safeprojectname$", Name = "Administration", RoleIds = new List<string>() {CoreServices.Update.GetAdminRoleId(portalId)} }
             //});
+
+            
+
 
             return updates;
         }

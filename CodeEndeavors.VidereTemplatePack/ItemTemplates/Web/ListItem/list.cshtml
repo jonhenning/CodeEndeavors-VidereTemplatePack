@@ -1,0 +1,54 @@
+@using System.Collections.Generic;
+@using Videre.Core.Extensions;
+@using Models = Videre.Core.Models;
+@using System.Web.Mvc.Html;
+@using Videre.Core.Services;
+@model Models.Widget
+
+@{
+    Html.RegisterWebReferenceGroup("datatables");
+    var data = $servernamespace$.Services.$safeitemname$.Get();
+    Html.RegisterControlPresenter("$clientnamespace$.$clientclassname$", Model, new { data = data } ); //can easily pass data from server to client-presenter
+}
+<div id="@Model.GetId("Widget")">
+    @{Html.RenderPartial("WidgetHeader", Model);}
+    @*@{Html.RenderPartial("WidgetSectionHeader", Model, new ViewDataDictionary(new { SectionHeader = Model.GetText("WidgetTitle.Text", "Your List Name Here") }));}
+    <p>@Html.Raw(Model.GetText("Instructions.Text", "Generic List Change As Needed."))</p>
+    <div class="row">
+        <div class="btn-toolbar col-md-12">
+            <div class="btn-group">
+                @Html.Bootstrap().Button("btnNew").ButtonSize(BootstrapUnits.ButtonSize.Small).Text("NewEntry.Text", "New Entry", true).Icon("glyphicon glyphicon-plus")
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered table-condensed" id="@Model.GetId("ItemTable")">
+                <thead>
+                    <tr>
+                        <th style="width: 62px"></th>
+                        <th>@Model.GetText("Name.Text", "Name")</th>
+                        <th>@Model.GetText("Description.Text", "Description")</th>
+                        <th>@Model.GetText("CompleteDate.Text", "Complete Date")</th>
+                    </tr>
+                </thead>
+                <tbody id="@Model.GetId("ItemList")"></tbody>
+            </table>
+            <script id="@Model.GetId("ItemListTemplate")" type="text/html">
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            @Html.Bootstrap().Button().DataAttribute("id", "{{:Id}}").DataAttribute("action", "edit").Icon("glyphicon glyphicon-pencil").ButtonSize(BootstrapUnits.ButtonSize.ExtraSmall)
+                            @Html.Bootstrap().Button().DataAttribute("id", "{{:Id}}").DataAttribute("action", "delete").Icon("glyphicon glyphicon-trash").ButtonSize(BootstrapUnits.ButtonSize.ExtraSmall)
+                        </div>
+                    </td>
+                    <td>{{:Name}}</td>
+                    <td>{{:Description}}</td>
+                    <td>{{:~formatDateTime(CompletedDate, null, '@Account.GetUserTimeZoneName()')}}</td>
+                </tr>
+            </script>
+        </div>
+    </div>*@
+
+</div>
