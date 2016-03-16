@@ -148,7 +148,9 @@
     <None Include="packages.config" />
     <None Include="ProjectTemplates\Web\Widget\build.targets" />
     <None Include="ProjectTemplates\Web\Widget\package.manifest" />
-    <None Include="ProjectTemplates\Web\Widget\packages.config" />
+    <None Include="ProjectTemplates\Web\Widget\packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ProjectTemplates\Web\Widget\Views\Shared\Widgets\Sample\ToDo.cshtml" />
     <None Include="ProjectTemplates\Web\Widget\Views\Web.config" />
     <None Include="ProjectTemplates\Web\Widget\Web.config">
