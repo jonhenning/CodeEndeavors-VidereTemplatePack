@@ -9,11 +9,15 @@
     <RootDir>$(MSBuildProjectDirectory)\..</RootDir>
     <RedistDir>$(RootDir)\redist</RedistDir>
     <DeployDir>$videredir$</DeployDir>
+    <ProvisioningDir>$videredir$\_updates</ProvisioningDir>
     <CommonLibDir>$(RootDir)\lib</CommonLibDir>
     <MSBuildTasksDir>$(CommonLibDir)\MSBuildTargets</MSBuildTasksDir>
   </PropertyGroup>
   <ItemGroup>
     <DeployDirs Include="$(DeployDir)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProvisioningDirs Include="$(ProvisioningDir)" />
   </ItemGroup>
   <Import Project="$(MSBuildTasksDir)\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildTasksDir)\MSBuild.Community.Tasks.Targets')"/>
 
@@ -63,13 +67,16 @@
                 ">
       <Output TaskParameter="Include" ItemName="ReleaseWidgets" />
     </CreateItem>
-    <Zip Files="@(DebugWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(ZipName)" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Zip Files="@(DebugWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(ZipName).Debug.zip" Condition=" '$(Configuration)' == 'Debug' "/>
     <Zip Files="@(ReleaseWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(ZipName)" Condition=" '$(Configuration)' == 'Release' " />
+    <Copy SourceFiles="$(TargetDir)$(Name).dll" DestinationFolder="$(RedistDir)" />
   </Target>
 
   <Target Name="Deploy">
     <!--<MakeDir Directories="$(DeployDir)\_updates"/>-->
-    <Copy SourceFiles="$(RedistDir)\$(ZipName)" DestinationFolder="%(DeployDirs.FullPath)\_updates" />
+    <Copy SourceFiles="$(RedistDir)\$(ZipName).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Copy SourceFiles="$(RedistDir)\$(ZipName)" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Release' "/>
+    <Copy SourceFiles="$(RedistDir)\$(ZipName)" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition=" '$(Configuration)' == 'Release' "/>
   </Target>
 
 </Project>
