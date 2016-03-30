@@ -9,7 +9,7 @@
     <RootDir>$(MSBuildProjectDirectory)\..</RootDir>
     <RedistDir>$(RootDir)\redist</RedistDir>
     <DeployDir>$videredir$</DeployDir>
-    <ProvisioningDir>$videredir$\_updates</ProvisioningDir>
+    <ProvisioningDir></ProvisioningDir>
     <CommonLibDir>$(RootDir)\lib</CommonLibDir>
     <MSBuildTasksDir>$(CommonLibDir)\MSBuildTargets</MSBuildTasksDir>
   </PropertyGroup>
