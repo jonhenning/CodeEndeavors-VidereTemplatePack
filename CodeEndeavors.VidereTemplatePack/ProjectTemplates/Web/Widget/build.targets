@@ -72,11 +72,11 @@
     <Copy SourceFiles="$(TargetDir)$(Name).dll" DestinationFolder="$(RedistDir)" />
   </Target>
 
-  <Target Name="Deploy">
-    <!--<MakeDir Directories="$(DeployDir)\_updates"/>-->
+  <Target Name="Deploy" >
     <Copy SourceFiles="$(RedistDir)\$(ZipName).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
-    <Copy SourceFiles="$(RedistDir)\$(ZipName)" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Release' "/>
-    <Copy SourceFiles="$(RedistDir)\$(ZipName)" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition=" '$(Configuration)' == 'Release' "/>
+    <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition="$(DeployDir) != '' AND '$(Configuration)' != 'Debug'"/>
+    <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''" />
   </Target>
+
 
 </Project>
