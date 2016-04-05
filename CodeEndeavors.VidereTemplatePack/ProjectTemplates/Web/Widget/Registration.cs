@@ -27,6 +27,10 @@ namespace $safeprojectname$
             {
                 new CoreModels.WidgetManifest() { Path = "$servernamespace$", Name = "ToDo", Title = "To Do", Category = "Sample"}
             });
+
+            //Client.ServiceName.Register(ConfigurationManager.AppSettings.GetSetting("ServiceNameConnection", "http://servicehost.url"), ConfigurationManager.AppSettings.GetSetting("HttpServiceTimeout", 240000));
+            
+
             //updates += CoreServices.Menu.AddMenuItem("MainMenu", new MenuItem()
             //    {
             //        Text = "Provisioning",
@@ -37,7 +41,45 @@ namespace $safeprojectname$
             //        }
             //    }, 1);
 
+            //var appMenuId = CoreServices.Menu.RegisterMenu("AppMenu", null);
+            //var homeSideMenuId = CoreServices.Menu.RegisterMenu("HomeSideMenu", null);
 
+            //updates += CoreServices.Portal.RegisterLayoutTemplate("Home", "LayoutName", "Full Layout Name", new List<CoreModels.Widget>()
+            //{
+            //    CoreServices.Portal.GetWidgetForTemplate("Top", "LayoutPath", new List<string>() { appMenuId }),
+            //    CoreServices.Portal.GetWidgetForTemplate("Left", "LayoutPath", new List<string>() { homeSideMenuId })
+            //});
+
+            //updates += CoreServices.Menu.AddMenuItem("AppMenu", new MenuItem()
+            //{
+            //    Text = "Home",
+            //    Items = new List<MenuItem>()
+            //        {
+            //            new MenuItem() { Text = "Home", Url = "~/"},
+            //            new MenuItem() { Text = "App1", Url = "~/app1/default"},
+            //            new MenuItem() { Text = "App2", Url = "~/app2/default"}
+            //        }
+            //}, 1);
+
+            //updates += CoreServices.Menu.AddMenuItem("HomeSideMenu", new MenuItem() { Text = "Home", Icon = "icon-home", Url = "~/" } );
+            //updates += CoreServices.Menu.AddMenuItem("HomeSideMenu", new MenuItem() { Text = "Admin", Icon = "icon-settings", Url = "~/admin/portal", RoleIds = new List<string>() {CoreServices.Update.GetAdminRoleId()} });
+
+            //Below is only necessary for home screen 
+            //Sets the home screen layout
+            //If this is not the home screen keep the below commented or remove it
+            //var homeLayoutId = CoreServices.Portal.GetLayoutTemplate("Home").Id;
+            //var homePage = CoreServices.Portal.GetPageTemplate("");
+            //if (homePage != null)
+            //{
+            //    if (homePage.LayoutId != homeLayoutId)
+            //    {
+            //        homePage.LayoutId = homeLayoutId;
+            //        CoreServices.Portal.Save(homePage);
+            //    }
+            //}
+
+            //updates += CoreServices.Portal.RegisterPageTemplate("Page Name", "URL path (Ex. pagename/pagenamepart2 which will be equivalent to ~/pagename/pagenamepart2", "$servernamespace$", "Location to place on template Ex. "Main"", "WidgetPath");
+            
             return updates; //return number of updates we have (so we can call save if something changed)
         }
 
