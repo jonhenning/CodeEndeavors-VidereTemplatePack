@@ -75,6 +75,7 @@
   <Target Name="Deploy" >
     <Copy SourceFiles="$(RedistDir)\$(ZipName).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
     <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition="$(DeployDir) != '' AND '$(Configuration)' != 'Debug'"/>
+    <Copy SourceFiles="$(RedistDir)\$(Name).Debug.zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != '' AND '$(Configuration)' == 'Debug'" />
     <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''" />
   </Target>
 
