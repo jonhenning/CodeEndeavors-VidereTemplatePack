@@ -5,7 +5,6 @@
     <Name>$servernamespace$</Name>
     <Version>1.0</Version>
     <Version Condition=" '$(Configuration)' == 'Debug'">$(Version) (Debug)</Version>
-    <ZipName>$(Name).zip</ZipName>
     <RootDir>$(MSBuildProjectDirectory)\..</RootDir>
     <RedistDir>$(RootDir)\redist</RedistDir>
     <DeployDir>$videredir$</DeployDir>
@@ -67,16 +66,16 @@
                 ">
       <Output TaskParameter="Include" ItemName="ReleaseWidgets" />
     </CreateItem>
-    <Zip Files="@(DebugWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(ZipName).Debug.zip" Condition=" '$(Configuration)' == 'Debug' "/>
-    <Zip Files="@(ReleaseWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(ZipName)" Condition=" '$(Configuration)' == 'Release' " />
+    <Zip Files="@(DebugWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(Name).Debug.zip" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Zip Files="@(ReleaseWidgets);" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(RedistDir)\$(Name).zip" Condition=" '$(Configuration)' == 'Release' " />
     <Copy SourceFiles="$(TargetDir)$(Name).dll" DestinationFolder="$(RedistDir)" />
   </Target>
 
   <Target Name="Deploy" >
-    <Copy SourceFiles="$(RedistDir)\$(ZipName).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
-    <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition="$(DeployDir) != '' AND '$(Configuration)' != 'Debug'"/>
+    <Copy SourceFiles="$(RedistDir)\$(Name).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
+    <Copy SourceFiles="$(RedistDir)\$(Name).zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition="$(DeployDir) != '' AND '$(Configuration)' != 'Debug'"/>
     <Copy SourceFiles="$(RedistDir)\$(Name).Debug.zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != '' AND '$(Configuration)' == 'Debug'" />
-    <Copy SourceFiles="$(RedistDir)\$(ZipName).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''" />
+    <Copy SourceFiles="$(RedistDir)\$(Name).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''" />
   </Target>
 
 
