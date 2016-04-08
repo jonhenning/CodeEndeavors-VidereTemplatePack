@@ -146,7 +146,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="packages.config" />
-    <None Include="ProjectTemplates\Web\Widget\build.targets" />
+    <None Include="ProjectTemplates\Web\Widget\build.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ProjectTemplates\Web\Widget\package.manifest" />
     <None Include="ProjectTemplates\Web\Widget\packages.config">
       <SubType>Designer</SubType>

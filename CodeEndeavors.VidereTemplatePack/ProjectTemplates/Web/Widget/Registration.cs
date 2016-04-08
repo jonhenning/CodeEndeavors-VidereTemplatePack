@@ -1,10 +1,14 @@
-﻿using System;
+﻿using CodeEndeavors.Extensions;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Videre.Core.Models;
 using CoreModels = Videre.Core.Models;
 using CoreServices = Videre.Core.Services;
+//using Client = Your ClientX dll;
+
 
 namespace $safeprojectname$
 {
