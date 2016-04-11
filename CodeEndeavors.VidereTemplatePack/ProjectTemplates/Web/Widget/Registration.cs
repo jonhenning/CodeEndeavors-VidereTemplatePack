@@ -32,7 +32,7 @@ namespace $safeprojectname$
                 new CoreModels.WidgetManifest() { Path = "$servernamespace$", Name = "ToDo", Title = "To Do", Category = "Sample"}
             });
 
-            //Client.ServiceName.Register(ConfigurationManager.AppSettings.GetSetting("ServiceNameConnection", "http://servicehost.url"), ConfigurationManager.AppSettings.GetSetting("HttpServiceTimeout", 240000));
+            //Client.ServiceName.Register(ConfigurationManager.AppSettings.GetSetting("ServiceNameConnection", ""), ConfigurationManager.AppSettings.GetSetting("HttpServiceTimeout", 240000));
             
 
             //updates += CoreServices.Menu.AddMenuItem("MainMenu", new MenuItem()
