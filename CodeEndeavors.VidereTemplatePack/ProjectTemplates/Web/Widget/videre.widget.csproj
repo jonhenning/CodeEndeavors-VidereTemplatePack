@@ -51,16 +51,17 @@
         <RootNamespace>$servernamespace$</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-      <Reference Include="CodeEndeavors.Distributed.Cache.Client">
-        <HintPath>..\packages\CodeEndeavors.Distributed.Cache.Client.1.0.8\lib\4.5\CodeEndeavors.Distributed.Cache.Client.dll</HintPath>
+      <Reference Include="CodeEndeavors.Distributed.Cache.Client, Version=1.0.15.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\CodeEndeavors.Distributed.Cache.Client.1.0.15\lib\4.5\CodeEndeavors.Distributed.Cache.Client.dll</HintPath>
+        <Private>True</Private>
       </Reference>
-      <Reference Include="CodeEndeavors.Extensions, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-        <SpecificVersion>False</SpecificVersion>
-        <HintPath>..\packages\CodeEndeavors.Extensions.2.0.7\lib\net45\CodeEndeavors.Extensions.dll</HintPath>
+      <Reference Include="CodeEndeavors.Extensions, Version=2.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\CodeEndeavors.Extensions.2.0.8\lib\net45\CodeEndeavors.Extensions.dll</HintPath>
+        <Private>True</Private>
       </Reference>
-      <Reference Include="CodeEndeavors.ResourceManager, Version=2.0.19.0, Culture=neutral, processorArchitecture=MSIL">
-        <SpecificVersion>False</SpecificVersion>
-        <HintPath>..\packages\CodeEndeavors.ResourceManager.2.0.19\lib\net45\CodeEndeavors.ResourceManager.dll</HintPath>
+      <Reference Include="CodeEndeavors.ResourceManager, Version=2.0.20.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\CodeEndeavors.ResourceManager.2.0.20\lib\net45\CodeEndeavors.ResourceManager.dll</HintPath>
+        <Private>True</Private>
       </Reference>
       <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
         <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -105,9 +106,9 @@
         <SpecificVersion>False</SpecificVersion>
         <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       </Reference>
-      <Reference Include="Videre.Core, Version=2.2.12.0, Culture=neutral, processorArchitecture=MSIL">
-        <SpecificVersion>False</SpecificVersion>
-        <HintPath>..\packages\Videre.Core.2.2.12\lib\net45\Videre.Core.dll</HintPath>
+      <Reference Include="Videre.Core, Version=2.2.24.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\Videre.Core.2.2.24\lib\net45\Videre.Core.dll</HintPath>
+        <Private>True</Private>
       </Reference>
         
     </ItemGroup>
