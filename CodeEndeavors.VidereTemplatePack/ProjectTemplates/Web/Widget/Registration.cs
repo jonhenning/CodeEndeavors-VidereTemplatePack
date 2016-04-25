@@ -42,7 +42,7 @@ namespace $safeprojectname$
         //only necessary for registering service endpoints
         //private void registerServices()
         //{
-        //    Client.ServiceName.Register(ConfigurationManager.AppSettings.GetSetting("ServiceConnection", ""), ConfigurationManager.AppSettings.GetSetting("HttpServiceTimeout", 240000));
+        //    ServiceLocator.Register<Client.ServiceName>(ConfigurationManager.AppSettings.GetSetting("ServicesConnection", ""), ConfigurationManager.AppSettings.GetSetting("HttpServiceTimeout", 240000));
         
         //}
 

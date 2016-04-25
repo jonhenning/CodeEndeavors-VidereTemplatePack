@@ -9,26 +9,22 @@ namespace $rootnamespace$
 {
     public class $safeitemname$
     {
-        //private static Client.$safeitemname$ $safeitemname$Service
-        //{
-        //    get { return Client.$safeitemname$.Resolve(); }
-        //}
 
         //If using a service backend
-        //public static DomainObjects.$safeitemname$ ProductGet(int id)
+        //public static DomainObjects.$safeitemname$ $safeitemname$Get(int id)
         //{
-        //    var cr = $safeitemname$Service.$safeitemname$Get(id);
-        //    if (cr.Success)
-        //        return cr.Data;
-        //    throw new Exception(cr.ToString());
+        //    return Client.$safeitemname$.ExecuteClient<DomainObjects.$safeitemname$>(() =>
+        //    {
+        //        return ServiceLocator.Resolve<Client.$safeitemname$>().$safeitemname$Get(id);
+        //    });
         //}
 
         //public static int? $safeitemname$Save(DomainObjects.$safeitemname$ $safeitemnamecamelcase$)
         //{
-        //    var cr = $safeitemname$Service.$safeitemname$Save($safeitemnamecamelcase$);
-        //    if (cr.Success)
-        //        return cr.Data;
-        //    throw new Exception(cr.ToString());
+        //    return Client.$safeitemname$.ExecuteClient<int?>(() =>
+        //    {
+        //        return ServiceLocator.Resolve<Client.$safeitemname$>().$safeitemname$Save($safeitemnamecamelcase$);
+        //    });
         //}
 
     }
