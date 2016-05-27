@@ -75,7 +75,7 @@
     <Copy SourceFiles="$(RedistDir)\$(Name).Debug.zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition=" '$(Configuration)' == 'Debug' "/>
     <Copy SourceFiles="$(RedistDir)\$(Name).zip" DestinationFolder="%(DeployDirs.FullPath)\_updates" Condition="$(DeployDir) != '' AND '$(Configuration)' != 'Debug'"/>
     <Copy SourceFiles="$(RedistDir)\$(Name).Debug.zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != '' AND '$(Configuration)' == 'Debug'" />
-    <Copy SourceFiles="$(RedistDir)\$(Name).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''" />
+    <Copy SourceFiles="$(RedistDir)\$(Name).zip" DestinationFolder="%(ProvisioningDirs.FullPath)" Condition="$(ProvisioningDir) != ''  AND '$(Configuration)' != 'Debug'" />
   </Target>
 
 
